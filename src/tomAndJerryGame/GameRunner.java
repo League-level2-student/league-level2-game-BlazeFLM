@@ -2,13 +2,13 @@ package tomAndJerryGame;
 
 import javax.swing.JFrame;
 
-public class TomAndJerryGameRunner {
+public class GameRunner {
 	JFrame frame = new JFrame();
 	GamePanel panel = new GamePanel();
 	
-	public static final int frameSize = 500;
+	public static final int theSize = 500;
 	
-	TomAndJerryGameRunner(){
+	GameRunner(){
 		this.frame = new JFrame();
 		this.panel = new GamePanel();
 	}
@@ -16,13 +16,13 @@ public class TomAndJerryGameRunner {
 	
 	void setup() {
 		frame.add(panel);
-		frame.setSize(frameSize,frameSize);
+		frame.setSize(theSize,theSize);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.addKeyListener(panel);
 		frame.setVisible(true);
 	}
 	public static void main(String[] args) {
-		TomAndJerryGameRunner newFrame = new TomAndJerryGameRunner();
+		GameRunner newFrame = new GameRunner();
 		newFrame.setup();
 	}
 }
