@@ -2,12 +2,14 @@ package tomAndJerryGame;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+import javax.swing.Timer;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
@@ -15,14 +17,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int GAME = 1;
 	final int END = 2;
 	int currentState = MENU;
-
+	Timer frameDraw;
 	Font titleFont = new Font("Arial", Font.PLAIN, 24);
 	Font regularFont = new Font("Arial", Font.PLAIN, 14);
-	Color beige = new Color(245,245,220);
+	Font deathFont = new Font("Serif", Font.BOLD, 50);
+	Color beige = new Color(245, 245, 220);
+
+	Mouse jerry = new Mouse(100,250, 50, 50, 3);
+	
+	public GamePanel() {
+		frameDraw = new Timer(1000 / 60, this);
+		frameDraw.start();
+	}
 
 	@Override
 	public void paintComponent(Graphics g) {
-		
 		if (currentState == MENU) {
 			drawMenuState(g);
 		} else if (currentState == GAME) {
@@ -36,7 +45,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
-		
+
 	}
 
 	void updateEndState() {
@@ -54,21 +63,59 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawGameState(Graphics g) {
+		g.setColor(Color.white);
+		g.fillRect(0, 0, GameRunner.theSize, GameRunner.theSize);
+		g.setColor(Color.black);
 		g.drawRect(0, 0, 100, 75);
 		g.setFont(regularFont);
-		g.drawString("Score: ", 10, 10);
-		g.setColor(new Color(255,255,255,150)); 
+		g.drawString("Score: ", 5, 30);
+		g.drawString("Health: ", 5, 60);
+		g.setColor(new Color(255, 255, 255, 150));
 		g.drawRect(5, 5, GameRunner.theSize - 5, GameRunner.theSize - 5);
-		
+
 	}
 
 	void drawEndState(Graphics g) {
-		
+		g.setColor(Color.black);
+		g.fillRect(0, 0, GameRunner.theSize, GameRunner.theSize);
+		g.setColor(Color.red.darker());
+		g.setFont(deathFont);
+		g.drawString("YOU DIED", 120, 100);
+		g.setColor(Color.red.brighter());
+		g.setFont(regularFont);
+		g.drawString("Tom caught you. You had " + "" + " cheese banked", 100, 200);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
+		if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (currentState == END) {
+				currentState = MENU;
+			} else {
+				currentState++;
+			}
+		}
+		if (currentState == GAME) {
+			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
+				System.out.println("UP");
+				repaint();
+			}
+
+			if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
+				System.out.println("DOWN");
+				repaint();
+
+			}
+			if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
+				System.out.println("LEFT");
+				repaint();
+			}
+			if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
+				System.out.println("RIGHT");
+				repaint();
+			}
+		}
 
 	}
 
@@ -87,6 +134,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-
+		if (currentState == MENU) {
+			updateMenuState();
+		} else if (currentState == GAME) {
+			updateGameState();
+		} else if (currentState == END) {
+			updateEndState();
+		}
+		repaint();
 	}
 }
