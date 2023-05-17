@@ -23,8 +23,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font deathFont = new Font("Serif", Font.BOLD, 50);
 	Color beige = new Color(245, 245, 220);
 
-	Mouse jerry = new Mouse(100,250, 50, 50, 3);
-	
+	Mouse jerry = new Mouse(100, 250, 50, 50, 20);
+
 	public GamePanel() {
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
@@ -66,13 +66,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.white);
 		g.fillRect(0, 0, GameRunner.theSize, GameRunner.theSize);
 		g.setColor(Color.black);
-		g.drawRect(0, 0, 100, 75);
 		g.setFont(regularFont);
 		g.drawString("Score: ", 5, 30);
 		g.drawString("Health: ", 5, 60);
 		g.setColor(new Color(255, 255, 255, 150));
 		g.drawRect(5, 5, GameRunner.theSize - 5, GameRunner.theSize - 5);
-
+		jerry.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
@@ -99,30 +98,48 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (currentState == GAME) {
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 				System.out.println("UP");
+				jerry.up = true;
+				jerry.move();
 				repaint();
 			}
 
 			if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
 				System.out.println("DOWN");
+				jerry.down = true;
+				jerry.move();
 				repaint();
 
 			}
 			if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
 				System.out.println("LEFT");
+				jerry.left = true;
+				jerry.move();
 				repaint();
 			}
 			if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
 				System.out.println("RIGHT");
+				jerry.right = true;
+				jerry.move();
 				repaint();
 			}
 		}
-
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-
+		if (arg0.getKeyCode() == KeyEvent.VK_UP) {
+			jerry.up = false;
+		}
+		if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
+			jerry.down = false;
+		}
+		if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
+			jerry.left = false;
+		}
+		if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
+			jerry.right = false;
+		}
 	}
 
 	@Override

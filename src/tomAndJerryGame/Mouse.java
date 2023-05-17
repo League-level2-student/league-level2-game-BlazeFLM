@@ -4,13 +4,36 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Mouse extends GameObject {
-
+	boolean up = false;
+	boolean down = false;
+	boolean left = false;
+	boolean right = false;
+	
 	public Mouse(int x, int y, int width, int height, int speed) {
 		super(x, y, width, height, speed);
 		// TODO Auto-generated constructor stub
+		
 	}
+	
+	public void move() {
+		super.update();
+		if (up && y > 0) {
+			y -= speed;
+		}
+		if (down && y <  GameRunner.theSize - 50) {
+			y += speed;
+		}
+		if (left && x > 0) {
+			x -= speed;
+		}
+		if (right && x <  GameRunner.theSize - 50) {
+			x += speed;
+		}
+	}
+	
+	
 	void draw(Graphics g) {
-		g.setColor(Color.BLUE);
+		g.setColor(Color.YELLOW);
         g.fillRect(x, y, width, height);
 	}
 }
