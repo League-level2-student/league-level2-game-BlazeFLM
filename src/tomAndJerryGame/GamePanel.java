@@ -45,7 +45,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
-
+		jerry.move();
 	}
 
 	void updateEndState() {
@@ -87,6 +87,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
+		jerry.up = false;
+		jerry.down = false;
+		jerry.left = false;
+		jerry.right = false;
 		// TODO Auto-generated method stub
 		if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END) {
@@ -99,28 +103,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
 				System.out.println("UP");
 				jerry.up = true;
-				jerry.move();
-				repaint();
 			}
 
 			if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
 				System.out.println("DOWN");
 				jerry.down = true;
-				jerry.move();
-				repaint();
 
 			}
 			if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
 				System.out.println("LEFT");
 				jerry.left = true;
-				jerry.move();
-				repaint();
+
 			}
 			if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
 				System.out.println("RIGHT");
 				jerry.right = true;
-				jerry.move();
-				repaint();
+
 			}
 		}
 	}
@@ -128,18 +126,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		if (arg0.getKeyCode() == KeyEvent.VK_UP) {
-			jerry.up = false;
-		}
-		if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
-			jerry.down = false;
-		}
-		if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
-			jerry.left = false;
-		}
-		if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
-			jerry.right = false;
-		}
 	}
 
 	@Override
