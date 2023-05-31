@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.Customizer;
+import java.util.Random;
+
 import javax.swing.Timer;
 import javax.swing.JPanel;
 
@@ -23,8 +26,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font deathFont = new Font("Serif", Font.BOLD, 50);
 	Color beige = new Color(245, 245, 220);
 
-	Mouse jerry = new Mouse(100, 250, 50, 50, 20);
-
+	Random ran = new Random();
+	
+	Mouse jerry = new Mouse(100, 250, 50, 50, 5);
+	Cat tom = new Cat(400,100,70,70);
+	
 	public GamePanel() {
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
@@ -46,6 +52,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	void updateGameState() {
 		jerry.move();
+		tom.move();
 	}
 
 	void updateEndState() {
@@ -72,6 +79,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(new Color(255, 255, 255, 150));
 		g.drawRect(5, 5, GameRunner.theSize - 5, GameRunner.theSize - 5);
 		jerry.draw(g);
+		tom.draw(g);
+		System.out.println(tom.x);
 	}
 
 	void drawEndState(Graphics g) {

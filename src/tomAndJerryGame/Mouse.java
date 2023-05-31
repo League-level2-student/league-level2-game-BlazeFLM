@@ -12,7 +12,6 @@ public class Mouse extends GameObject {
 	public Mouse(int x, int y, int width, int height, int speed) {
 		super(x, y, width, height, speed);
 		// TODO Auto-generated constructor stub
-		
 	}
 	
 	public void move() {
@@ -20,7 +19,7 @@ public class Mouse extends GameObject {
 		if (up && y > 0) {
 			y -= speed;
 		}
-		if (down && y <  GameRunner.theSize - 50) {
+		if (down && y <  GameRunner.theSize - 85) {
 			y += speed;
 		}
 		if (left && x > 0) {

@@ -13,7 +13,6 @@ public class GameRunner {
 		this.panel = new GamePanel();
 	}
 	
-	
 	void setup() {
 		frame.add(panel);
 		frame.setSize(theSize,theSize);
