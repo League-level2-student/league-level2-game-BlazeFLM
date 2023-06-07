@@ -1,9 +1,11 @@
 package tomAndJerryGame;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,10 +29,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Color beige = new Color(245, 245, 220);
 
 	Random ran = new Random();
-	
+
 	Mouse jerry = new Mouse(100, 250, 50, 50, 5);
-	Cat tom = new Cat(400,100,70,70);
-	
+	Cat tom = new Cat(400, 100, 70, 70);
+	Cheese cheese = new Cheese(ran.nextInt(499) + 1, ran.nextInt(499) + 1, 25, 25, 0);
 	public GamePanel() {
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
@@ -77,10 +79,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Score: ", 5, 30);
 		g.drawString("Health: ", 5, 60);
 		g.setColor(new Color(255, 255, 255, 150));
-		g.drawRect(5, 5, GameRunner.theSize - 5, GameRunner.theSize - 5);
+		g.setColor(Color.black);
+		((Graphics2D) g).setStroke(new BasicStroke(5));
+		g.drawRect(0, 0, GameRunner.theSize, GameRunner.theSize);
 		jerry.draw(g);
 		tom.draw(g);
-		System.out.println(tom.x);
+		cheese.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
