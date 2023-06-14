@@ -27,24 +27,44 @@ public class Cat extends GameObject {
 	}
 
 	void move() {
+		super.update();
 		x += xSpeed;
+		System.out.println(xSpeed);
 		y += ySpeed;
+		System.out.println(ySpeed);
 		if (x <= 0) {
 			xSpeed *= -1;
-			xSpeed *= ran.nextInt(3) - 1;
+			int randomY = ran.nextInt(1 - -1 + 1) - 1;
+			if (randomY != 0) {
+				ySpeed = 5;
+			}
+			ySpeed *= randomY;
 		}
 		if (x >= GameRunner.theSize - 50) {
 			xSpeed *= -1;
-			xSpeed *= ran.nextInt(3) - 1;
+			int randomY = ran.nextInt(1 - -1 + 1) - 1;
+			if (randomY != 0) {
+				ySpeed = 5;
+			}
+			ySpeed *= randomY;
 		}
 		if (y <= 0) {
 			ySpeed *= -1;
-			ySpeed *= ran.nextInt(3) - 1;
+			int randomX = ran.nextInt(1 - -1 + 1) - 1;
+			if (randomX != 0) {
+				xSpeed = 5;
+			}
+			xSpeed *= randomX;
 		}
 		if (y >= GameRunner.theSize - 50) {
 			ySpeed *= -1;
-			ySpeed *= ran.nextInt(3) - 1;
+			int randomX = ran.nextInt(1 - -1 + 1) - 1;
+			if (randomX != 0) {
+				xSpeed = 5;
+			}
+			xSpeed *= randomX;
 		}
+
 		if (xSpeed > 10) {
 			xSpeed -= 6;
 		}

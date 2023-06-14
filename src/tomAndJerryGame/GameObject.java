@@ -7,13 +7,16 @@ public class GameObject {
 	int height;
 	int speed;
 	Rectangle collisionBox;
+	boolean isActive = true;
 	public GameObject(int x, int y, int width, int height, int speed) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.speed = speed;
+	collisionBox = new Rectangle(x, y, width, height);
 	}
 	void update() {
+		collisionBox.setBounds(x, y, width, height);
 	}
 }

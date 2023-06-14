@@ -27,12 +27,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font regularFont = new Font("Arial", Font.PLAIN, 14);
 	Font deathFont = new Font("Serif", Font.BOLD, 50);
 	Color beige = new Color(245, 245, 220);
-
 	Random ran = new Random();
 
 	Mouse jerry = new Mouse(100, 250, 50, 50, 5);
-	Cat tom = new Cat(400, 100, 70, 70);
-	Cheese cheese = new Cheese(ran.nextInt(499) + 1, ran.nextInt(499) + 1, 25, 25, 0);
+	ObjectManager karen = new ObjectManager(jerry);
+	
 	public GamePanel() {
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
@@ -53,8 +52,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
-		jerry.move();
-		tom.move();
+		karen.update();
+		
 	}
 
 	void updateEndState() {
@@ -76,15 +75,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, GameRunner.theSize, GameRunner.theSize);
 		g.setColor(Color.black);
 		g.setFont(regularFont);
-		g.drawString("Score: ", 5, 30);
+		g.drawString("Score: " + karen.score, 5, 30);
 		g.drawString("Health: ", 5, 60);
 		g.setColor(new Color(255, 255, 255, 150));
 		g.setColor(Color.black);
 		((Graphics2D) g).setStroke(new BasicStroke(5));
 		g.drawRect(0, 0, GameRunner.theSize, GameRunner.theSize);
-		jerry.draw(g);
-		tom.draw(g);
-		cheese.draw(g);
+		karen.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
