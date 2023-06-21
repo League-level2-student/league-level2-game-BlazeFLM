@@ -9,7 +9,8 @@ public class ObjectManager {
 	Cat tom = new Cat(400, 100, 70, 70);
 	Cheese cheese = new Cheese(ran.nextInt(430) + 1, ran.nextInt(430) + 1, 25, 25, 0);
 	
-	int score = 0;
+	int score;
+	int health;
 	public ObjectManager(Mouse jerry) {
 		this.jerry = jerry;
 	}
@@ -29,13 +30,17 @@ public class ObjectManager {
 	void checkCollision() {
 		if(jerry.collisionBox.intersects(cheese.collisionBox)) {
 			score++;
-			cheese.x = ran.nextInt(430) + 1;
-			cheese.y = ran.nextInt(430) + 1;
+			cheese = new Cheese(ran.nextInt(430) + 1, ran.nextInt(430) + 1, 25, 25, 0);
 		}
-		
+		if(jerry.collisionBox.intersects(tom.collisionBox)) {
+			health -= 5;
+			if(health == 0) {
+				jerry.isActive = false;
+			}
+		}
 	}
 	
-	//public int getScore() {
-	//	return score;
-	//}
+	public int getScore() {
+		return score;
+	}
 }

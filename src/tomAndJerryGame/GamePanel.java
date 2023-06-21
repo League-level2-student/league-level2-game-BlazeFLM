@@ -49,11 +49,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateMenuState() {
+		karen.score = 0;
+		karen.health = 100;
 	}
 
 	void updateGameState() {
 		karen.update();
-		
+		if (jerry.isActive == false) {
+			currentState = END;
+		}
 	}
 
 	void updateEndState() {
@@ -76,7 +80,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.black);
 		g.setFont(regularFont);
 		g.drawString("Score: " + karen.score, 5, 30);
-		g.drawString("Health: ", 5, 60);
+		g.drawString("Health: "  + karen.health, 5, 60);
 		g.setColor(new Color(255, 255, 255, 150));
 		g.setColor(Color.black);
 		((Graphics2D) g).setStroke(new BasicStroke(5));
@@ -92,7 +96,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("YOU DIED", 120, 100);
 		g.setColor(Color.red.brighter());
 		g.setFont(regularFont);
-		g.drawString("Tom caught you. You had " + "" + " cheese banked", 100, 200);
+		g.drawString("Tom caught you. You had " + karen.getScore() + " cheese banked", 100, 200);
 	}
 
 	@Override
