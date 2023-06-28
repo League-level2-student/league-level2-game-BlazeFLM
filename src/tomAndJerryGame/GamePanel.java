@@ -108,6 +108,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		// TODO Auto-generated method stub
 		if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
 			if (currentState == END) {
+				jerry = new Mouse(100, 250, 50, 50, 5);
+				karen = new ObjectManager(jerry);
 				currentState = MENU;
 			} else {
 				currentState++;

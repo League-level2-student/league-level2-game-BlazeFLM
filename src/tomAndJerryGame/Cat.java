@@ -84,8 +84,13 @@ public class Cat extends GameObject {
 	}
 
 	void draw(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(x, y, width, height);
+		if (gotImage) {
+			g.drawImage(image, x, y, width, height, null);
+		} else {
+			g.setColor(Color.black);
+			g.fillRect(x, y, width, height);
+		}
+		
 	}
 
 	void loadImage(String imageFile) {
