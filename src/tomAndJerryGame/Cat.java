@@ -39,9 +39,9 @@ public class Cat extends GameObject {
 	void move() {
 		super.update();
 		x += xSpeed;
-		System.out.println(xSpeed);
+		//System.out.println(xSpeed);
 		y += ySpeed;
-		System.out.println(ySpeed);
+		//System.out.println(ySpeed);
 		if (x <= 0) {
 			xSpeed *= -1;
 			int randomY = ran.nextInt(1 - -1 + 1) - 1;

@@ -11,10 +11,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.beans.Customizer;
 import java.util.Random;
 
 import javax.swing.Timer;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
@@ -31,10 +33,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	Mouse jerry = new Mouse(100, 250, 50, 50, 5);
 	ObjectManager karen = new ObjectManager(jerry);
-	
+
+	public static BufferedImage image;
+	public static boolean needImage = true;
+	public static boolean gotImage = false;
+
 	public GamePanel() {
 		frameDraw = new Timer(1000 / 60, this);
 		frameDraw.start();
+		if (needImage) {
+			loadImage("Living Room.jpg");
+		}
 	}
 
 	@Override
@@ -71,19 +80,25 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Tom and Jerry's Cheese Chase!", 75, 100);
 		g.setFont(regularFont);
 		g.drawString("Move your character with the arrows and collect cheese! Dodge Jerry!", 15, 200);
+		g.drawString("Restart the game by pressing Enter", 130, 250);
 		g.drawString("Press ENTER to start", 175, 300);
 	}
 
 	void drawGameState(Graphics g) {
+		if (gotImage) {
+			g.drawImage(image, 0, -20, GameRunner.theSize, GameRunner.theSize, null);
+		} else {
+			g.setColor(Color.white);
+			g.fillRect(0, 0, GameRunner.theSize, GameRunner.theSize);
+		}
 		g.setColor(Color.white);
-		g.fillRect(0, 0, GameRunner.theSize, GameRunner.theSize);
+		g.fillRect(0, 0, 80, 75);
 		g.setColor(Color.black);
 		g.setFont(regularFont);
 		g.drawString("Score: " + karen.score, 5, 30);
-		g.drawString("Health: "  + karen.health, 5, 60);
+		g.drawString("Health: " + karen.health, 5, 60);
 		g.setColor(new Color(255, 255, 255, 150));
 		g.setColor(Color.black);
-		((Graphics2D) g).setStroke(new BasicStroke(5));
 		g.drawRect(0, 0, GameRunner.theSize, GameRunner.theSize);
 		karen.draw(g);
 	}
@@ -117,22 +132,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if (currentState == GAME) {
 			if (arg0.getKeyCode() == KeyEvent.VK_UP) {
-				System.out.println("UP");
+				// System.out.println("UP");
 				jerry.up = true;
 			}
 
 			if (arg0.getKeyCode() == KeyEvent.VK_DOWN) {
-				System.out.println("DOWN");
+				// System.out.println("DOWN");
 				jerry.down = true;
 
 			}
 			if (arg0.getKeyCode() == KeyEvent.VK_LEFT) {
-				System.out.println("LEFT");
+				// System.out.println("LEFT");
 				jerry.left = true;
 
 			}
 			if (arg0.getKeyCode() == KeyEvent.VK_RIGHT) {
-				System.out.println("RIGHT");
+				// System.out.println("RIGHT");
 				jerry.right = true;
 
 			}
@@ -162,4 +177,17 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		}
 		repaint();
 	}
+
+	void loadImage(String imageFile) {
+		if (needImage) {
+			try {
+				image = ImageIO.read(this.getClass().getResourceAsStream(imageFile));
+				gotImage = true;
+			} catch (Exception e) {
+
+			}
+			needImage = false;
+		}
+	}
+
 }
